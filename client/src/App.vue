@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { eventBus } from '@/main.js'
 import SightingsForm from './components/SightingsForm';
 import SightingsGrid from './components/SightingsGrid';
 import SightingService from './services/SightingService.js';
@@ -23,6 +24,10 @@ export default {
   },
 	mounted() {
     this.fetchSightings();
+
+    eventBus.$on('sighting-added', (sighting) => {
+      this.sightings.push(sighting)
+    })
   },
   methods: {
     fetchSightings() {
